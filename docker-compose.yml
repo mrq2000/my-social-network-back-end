@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+
+  webserver:
+    image: node:12.18.2
+    tty: true
+    ports:
+      - "80:3000"
+    volumes:
+      - .:/opt/app
+    environment:
+      - NODE_ENV=dev
+    networks:
+      - app-network
+  
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    volumes:
+      - .data/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=app
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=secret
+    networks:
+      - app-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=0
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+      - PMA_USER=app
+      - PMA_PASSWORD=secret
+    ports:
+      - "81:80"
+    volumes:
+      - /sessions
+    networks:
+      - app-network
+    
+networks:
+  app-network:
+    driver: bridge

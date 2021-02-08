@@ -1,0 +1,44 @@
+{
+  "name": "my-social-network",
+  "version": "1.0.0",
+  "description": "my-social-network",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha tests --timeout=15000",
+    "eslint": "eslint './app/**/*.js'",
+    "migrate:run": "knex migrate:latest",
+    "migrate:rollback": "knex migrate:rollback",
+    "seed:run": "knex seed:run",
+    "docker": "docker-compose up -d webserver mysql phpmyadmin"
+  },
+  "author": "quocpham",
+  "private": true,
+  "dependencies": {
+    "async": "^3.2.0",
+    "axios": "^0.19.2",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.21.1",
+    "lodash": "^4.17.15",
+    "mysql": "^2.18.1",
+    "objection": "^2.2.1",
+    "request": "^2.88.2",
+    "shortid": "^2.2.15",
+    "slug": "^3.3.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "mocha": "^8.0.1",
+    "sinon": "^9.0.2"
+  }
+}
