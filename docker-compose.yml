@@ -42,7 +42,21 @@ services:
       - /sessions
     networks:
       - app-network
-    
+
+  minio:
+    image: minio/minio
+    volumes:
+    - .data/minio/:/data
+    ports:
+    - "9000:9000"
+    environment:
+    - MINIO_ACCESS_KEY=app
+    - MINIO_SECRET_KEY=secretsecret
+    - MINIO_REGION=us-west-2
+    command: server /data
+    networks:
+    - app-network
+
 networks:
   app-network:
     driver: bridge

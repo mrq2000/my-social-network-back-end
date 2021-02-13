@@ -6,11 +6,12 @@
   "scripts": {
     "start": "node index.js",
     "test": "mocha tests --timeout=15000",
+    "dev": "env TZ='UTC' nodemon index.js",
     "eslint": "eslint './app/**/*.js'",
     "migrate:run": "knex migrate:latest",
     "migrate:rollback": "knex migrate:rollback",
     "seed:run": "knex seed:run",
-    "docker": "docker-compose up -d webserver mysql phpmyadmin"
+    "docker": "sudo docker-compose up -d webserver mysql phpmyadmin minio"
   },
   "author": "quocpham",
   "private": true,
@@ -39,6 +40,7 @@
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "mocha": "^8.0.1",
+    "nodemon": "^2.0.4",
     "sinon": "^9.0.2"
   }
 }
