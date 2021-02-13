@@ -1,5 +1,7 @@
 const Joi = require('joi');
+
 const authService = require('../../services/auth');
+const { abort } = require('../../../helpers/error');
 
 async function validation(args) {
   try {
@@ -13,7 +15,7 @@ async function validation(args) {
     };
     return await Joi.validate(params, schema);
   } catch (error) {
-    throw new Error(JSON.stringify({ error: 'Params error', status: 400 }));
+    return abort(400, 'Params error');
   }
 }
 
