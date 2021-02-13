@@ -4,7 +4,7 @@ exports.seed = async (knex) => {
     full_name: 'bot 1',
     gender: 1,
     birthday: '2000/03/02',
-    city: 'Thành phố  Hà Nội',
+    province: 'Thành phố  Hà Nội',
     district: 'Đông Anh',
 
     avatar_link: '',
@@ -15,7 +15,7 @@ exports.seed = async (knex) => {
     full_name: 'bot 2',
     gender: 1,
     birthday: '2000/03/02',
-    city: 'Thành phố  Hà Nội',
+    province: 'Thành phố  Hà Nội',
     district: 'Đông Anh',
 
     avatar_link: '',
@@ -26,7 +26,7 @@ exports.seed = async (knex) => {
     full_name: 'bot 3',
     gender: 1,
     birthday: '2000/03/02',
-    city: 'Thành phố  Hà Nội',
+    province: 'Thành phố  Hà Nội',
     district: 'Đông Anh',
 
     avatar_link: '',
@@ -37,7 +37,7 @@ exports.seed = async (knex) => {
     full_name: 'bot 4',
     gender: 1,
     birthday: '2000/03/02',
-    city: 'Thành phố  Hà Nội',
+    province: 'Thành phố  Hà Nội',
     district: 'Đông Anh',
 
     avatar_link: '',
@@ -48,7 +48,7 @@ exports.seed = async (knex) => {
     full_name: 'bot 5',
     gender: 1,
     birthday: '2000/03/02',
-    city: 'Thành phố  Hà Nội',
+    province: 'Thành phố  Hà Nội',
     district: 'Đông Anh',
 
     avatar_link: '',
@@ -59,7 +59,7 @@ exports.seed = async (knex) => {
     full_name: 'bot 6',
     gender: 1,
     birthday: '2000/03/02',
-    city: 'Thành phố  Hà Nội',
+    province: 'Thành phố  Hà Nội',
     district: 'Đông Anh',
 
     avatar_link: '',
@@ -70,7 +70,7 @@ exports.seed = async (knex) => {
     full_name: 'bot 1',
     gender: 1,
     birthday: '2000/03/02',
-    city: 'Thành phố  Hà Nội',
+    province: 'Thành phố  Hà Nội',
     district: 'Đông Anh',
 
     avatar_link: '',
