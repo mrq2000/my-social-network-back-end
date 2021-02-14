@@ -6,7 +6,7 @@ async function getUser(req) {
   if (authorization === '') return false;
   if (!authorization.startsWith('Bearer ')) return false;
   const token = authorization.slice(7, authorization.length);
-  const payload = await jwt.parse(token);
+  const payload = jwt.parse(token);
   if (payload === false) return false;
   const user = await User.query().findOne({ id: payload.userId });
   if (!user) return false;
