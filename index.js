@@ -5,11 +5,12 @@ const dotenv = require('dotenv');
 const { Model } = require('objection');
 const cors = require('cors');
 
+dotenv.config({ path: '.env' }); // don't move this line under routes
+
 const routes = require('./app/routes');
 const knex = require('./database/knex');
 const middlewares = require('./app/http/middlewares');
 
-dotenv.config({ path: '.env' });
 Model.knex(knex);
 
 const app = express();
