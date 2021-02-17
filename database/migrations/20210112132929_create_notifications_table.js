@@ -5,9 +5,9 @@ exports.up = async (knex) => {
     table.text('image_link').collate('utf8_general_ci');
     table.tinyint('status', 1).unsigned().notNullable();
 
-    table.timestamps(true, true);
-
     table.integer('user_id', 1).unsigned().references('users.id').notNullable();
+
+    table.timestamps(true, true);
   });
 };
 

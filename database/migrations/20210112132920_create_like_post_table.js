@@ -3,10 +3,10 @@ exports.up = async (knex) => {
     table.increments('id');
     table.tinyint('type', 1).unsigned().notNullable();
 
-    table.timestamps(true, true);
-
     table.integer('post_id', 1).unsigned().references('posts.id').notNullable();
     table.integer('user_id', 1).unsigned().references('users.id').notNullable();
+
+    table.timestamps(true, true);
   });
 };
 

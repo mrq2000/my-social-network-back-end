@@ -22,3 +22,15 @@ exports.getImage = async (key) => {
 
   return img;
 };
+
+exports.getPresignedUploadUrl = async (key) => {
+  const url = await s3
+    .getSignedUrl('getObject', {
+      Bucket: 'images',
+      Key: key,
+      ContentType: 'image/*',
+      Expires: 300,
+    })
+    .promise();
+  return url;
+};

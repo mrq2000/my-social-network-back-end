@@ -4,10 +4,10 @@ exports.up = async (knex) => {
     table.text('content').collate('utf8_general_ci').notNullable();
     table.text('attach_link').collate('utf8_general_ci').notNullable();
 
-    table.timestamps(true, true);
-
     table.integer('sender_id', 1).unsigned().references('users.id').notNullable();
     table.integer('receiver_id', 1).unsigned().references('users.id').notNullable();
+
+    table.timestamps(true, true);
   });
 };
 
