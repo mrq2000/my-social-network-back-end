@@ -1,3 +1,5 @@
+const userStatusEnum = require('../../enums/userStatus');
+
 function auth(req, res, next) {
   if (!req.user) {
     return res.status(401).send({
@@ -5,6 +7,11 @@ function auth(req, res, next) {
     });
   }
 
+  if (req.user.status !== userStatusEnum.ACTIVE) {
+    return res.status(401).send({
+      error: 'Your account was been blocked',
+    });
+  }
   return next();
 }
 

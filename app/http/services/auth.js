@@ -4,6 +4,7 @@ const { transaction } = require('objection');
 const { User } = require('../../models');
 const { abort } = require('../../helpers/error');
 const jwt = require('../../helpers/jwt');
+const userStatusEnum = require('../../enums/userStatus');
 
 const checkGoogleToken = async (providerAccessToken) => {
   try {
@@ -20,22 +21,22 @@ const checkGoogleToken = async (providerAccessToken) => {
 };
 
 const signInWithGoogle = async (providerAccessToken) => {
-  try {
-    const email = await checkGoogleToken(providerAccessToken);
+  const email = await checkGoogleToken(providerAccessToken);
 
-    const user = await User.query().findOne({ email });
-    if (!user) {
-      return { email, hasAccount: false };
-    }
-
-    const accessToken = jwt.generate({ userId: user.id });
-
-    return {
-      accessToken,
-    };
-  } catch (e) {
-    return abort(400, 'Fail To Login With Google Account');
+  const user = await User.query().findOne({ email });
+  if (!user) {
+    return { email, hasAccount: false };
   }
+
+  if (user.status !== userStatusEnum.ACTIVE) {
+    return abort(401, 'Your account was been blocked');
+  }
+
+  const accessToken = jwt.generate({ userId: user.id });
+
+  return {
+    accessToken,
+  };
 };
 
 exports.signIn = async ({ providerAccessToken, providerName }) => {
@@ -67,6 +68,7 @@ exports.signUp = async ({
         province,
         district,
         location,
+        status: userStatusEnum.ACTIVE,
       });
 
       accessToken = jwt.generate({ userId: userInfo.id });

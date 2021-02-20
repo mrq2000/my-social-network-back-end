@@ -1,3 +1,5 @@
+const userStatusEnum = require('../../app/enums/userStatus');
+
 exports.seed = async (knex) => {
   await knex('users').insert([{
     email: 'user1@gmail.com',
@@ -6,6 +8,7 @@ exports.seed = async (knex) => {
     birthday: '2000/03/02',
     province: 'Thành phố  Hà Nội',
     district: 'Đông Anh',
+    status: userStatusEnum.ACTIVE,
 
     avatar_link: '',
     slogan: 'Trói em bằng cà vạt',
@@ -17,6 +20,7 @@ exports.seed = async (knex) => {
     birthday: '2000/03/02',
     province: 'Thành phố  Hà Nội',
     district: 'Đông Anh',
+    status: userStatusEnum.ACTIVE,
 
     avatar_link: '',
     slogan: 'Trói em bằng cà vạt',
@@ -28,6 +32,7 @@ exports.seed = async (knex) => {
     birthday: '2000/03/02',
     province: 'Thành phố  Hà Nội',
     district: 'Đông Anh',
+    status: userStatusEnum.ACTIVE,
 
     avatar_link: '',
     slogan: 'Trói em bằng cà vạt',
@@ -39,6 +44,7 @@ exports.seed = async (knex) => {
     birthday: '2000/03/02',
     province: 'Thành phố  Hà Nội',
     district: 'Đông Anh',
+    status: userStatusEnum.ACTIVE,
 
     avatar_link: '',
     slogan: 'Trói em bằng cà vạt',
@@ -50,6 +56,7 @@ exports.seed = async (knex) => {
     birthday: '2000/03/02',
     province: 'Thành phố  Hà Nội',
     district: 'Đông Anh',
+    status: userStatusEnum.ACTIVE,
 
     avatar_link: '',
     slogan: 'Trói em bằng cà vạt',
@@ -61,6 +68,7 @@ exports.seed = async (knex) => {
     birthday: '2000/03/02',
     province: 'Thành phố  Hà Nội',
     district: 'Đông Anh',
+    status: userStatusEnum.ACTIVE,
 
     avatar_link: '',
     slogan: 'Trói em bằng cà vạt',
@@ -72,6 +80,7 @@ exports.seed = async (knex) => {
     birthday: '2000/03/02',
     province: 'Thành phố  Hà Nội',
     district: 'Đông Anh',
+    status: userStatusEnum.ACTIVE,
 
     avatar_link: '',
     slogan: 'Trói em bằng cà vạt',

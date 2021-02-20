@@ -5,5 +5,6 @@ const { auth } = require('../http/middlewares');
 const router = express.Router();
 
 router.post('/posts', auth, postsController.addPost);
+router.get('/my-posts', auth, postsController.getMyPosts);
 
 module.exports = router;
