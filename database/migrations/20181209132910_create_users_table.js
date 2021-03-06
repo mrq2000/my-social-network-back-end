@@ -9,7 +9,7 @@ exports.up = async (knex) => {
     table.string('district', 63).collate('utf8_general_ci').notNullable();
     table.tinyint('status', 1).unsigned().notNullable();
 
-    table.string('avatar_link', 255).collate('utf8_general_ci');
+    table.string('avatar_name', 255).collate('utf8_general_ci');
     table.string('slogan', 255).collate('utf8_general_ci');
     table.string('location', 255).collate('utf8_general_ci');
 

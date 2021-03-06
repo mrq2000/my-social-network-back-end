@@ -10,7 +10,7 @@ exports.seed = async (knex) => {
     district: 'Đông Anh',
     status: userStatusEnum.ACTIVE,
 
-    avatar_link: '',
+    avatar_name: '',
     slogan: 'Trói em bằng cà vạt',
     location: '....',
   }, {
@@ -22,7 +22,7 @@ exports.seed = async (knex) => {
     district: 'Đông Anh',
     status: userStatusEnum.ACTIVE,
 
-    avatar_link: '',
+    avatar_name: '',
     slogan: 'Trói em bằng cà vạt',
     location: '....',
   }, {
@@ -34,7 +34,7 @@ exports.seed = async (knex) => {
     district: 'Đông Anh',
     status: userStatusEnum.ACTIVE,
 
-    avatar_link: '',
+    avatar_name: '',
     slogan: 'Trói em bằng cà vạt',
     location: '....',
   }, {
@@ -46,7 +46,7 @@ exports.seed = async (knex) => {
     district: 'Đông Anh',
     status: userStatusEnum.ACTIVE,
 
-    avatar_link: '',
+    avatar_name: '',
     slogan: 'Trói em bằng cà vạt',
     location: '....',
   }, {
@@ -58,7 +58,7 @@ exports.seed = async (knex) => {
     district: 'Đông Anh',
     status: userStatusEnum.ACTIVE,
 
-    avatar_link: '',
+    avatar_name: '',
     slogan: 'Trói em bằng cà vạt',
     location: '....',
   }, {
@@ -70,7 +70,7 @@ exports.seed = async (knex) => {
     district: 'Đông Anh',
     status: userStatusEnum.ACTIVE,
 
-    avatar_link: '',
+    avatar_name: '',
     slogan: 'Trói em bằng cà vạt',
     location: '....',
   }, {
@@ -82,7 +82,7 @@ exports.seed = async (knex) => {
     district: 'Đông Anh',
     status: userStatusEnum.ACTIVE,
 
-    avatar_link: '',
+    avatar_name: '',
     slogan: 'Trói em bằng cà vạt',
     location: '....',
   },

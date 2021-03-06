@@ -17,7 +17,7 @@ exports.getImage = async (key) => {
 
     img = encode((await s3.getObject(params).promise()).Body);
   } catch (error) {
-    console.log(error);
+    return null;
   }
 
   return img;
