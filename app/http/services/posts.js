@@ -1,6 +1,7 @@
 const { Post } = require('../../models');
 const { abort } = require('../../helpers/error');
 const postStatusEnum = require('../../enums/postStatus');
+const { getPresignedImageUrl } = require('../../helpers/image');
 
 exports.addPost = async ({ userId, content, type }) => {
   try {
@@ -23,5 +24,15 @@ exports.getMyPosts = async ({ userId, limit, offset }) => {
     .offset(offset)
     .orderBy('id', 'desc');
 
-  return posts;
+  const response = posts.map((post) => {
+    let imgSign = null;
+    if (post.image_name) {
+      imgSign = getPresignedImageUrl(post.image_name);
+    }
+    return {
+      ...post, image_name: imgSign,
+    };
+  });
+
+  return response;
 };

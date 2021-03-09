@@ -6,7 +6,7 @@ const { abort } = require('../../../helpers/error');
 async function validation(postInfo) {
   try {
     const schema = Joi.object().keys({
-      imageName: Joi.string().required(),
+      mainAvatar: Joi.string().required(),
       userId: Joi.number().integer().min(1).required(),
     });
 
@@ -17,12 +17,14 @@ async function validation(postInfo) {
 }
 
 async function updateAvatar(req, res) {
-  const { imageName } = req;
-  const userId = req.user.id;
+  const avatarInfo = {
+    mainAvatar: req.mainAvatar,
+    userId: req.user.id,
+  };
 
-  await validation({ imageName, userId });
+  await validation(avatarInfo);
 
-  await userService.updateAvatar({ imageName, userId });
+  await userService.updateAvatar(avatarInfo);
   return res.status(204).send();
 }
 
