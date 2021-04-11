@@ -8,6 +8,9 @@ exports.up = async (knex) => {
     table.integer('receiver_id', 1).unsigned().references('users.id').notNullable();
 
     table.timestamps(true, true);
+
+    table.index('sender_id');
+    table.index('receiver_id');
   });
 };
 

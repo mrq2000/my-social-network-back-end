@@ -1,4 +1,4 @@
-const { Post } = require('../../models');
+const { Post, LikePost, Comment } = require('../../models');
 const { abort } = require('../../helpers/error');
 const postStatusEnum = require('../../enums/postStatus');
 const { getPresignedImageUrl } = require('../../helpers/image');
@@ -20,6 +20,14 @@ exports.getMyPosts = async ({ userId, limit, offset }) => {
   const posts = await Post.query()
     .where({ user_id: userId })
     .andWhereNot('status', postStatusEnum.CLOSED)
+    .withGraphFetched('likes')
+    .modifyGraph('likes', (builder) => {
+      builder.select('id', 'type');
+    })
+    .withGraphFetched('likes.user')
+    .modifyGraph('likes.user', (builder) => {
+      builder.select('id', 'full_name');
+    })
     .limit(limit)
     .offset(offset)
     .orderBy('id', 'desc');
@@ -35,4 +43,23 @@ exports.getMyPosts = async ({ userId, limit, offset }) => {
   });
 
   return response;
+};
+
+exports.likePost = async ({
+  type, postId, userId,
+}) => {
+  const insertLikePost = {
+    type, post_id: postId, user_id: userId,
+  };
+
+  await LikePost.knexQuery()
+    .insert({ type, post_id: postId, user_id: userId })
+    .onConflict(['user_id', 'post_id'])
+    .merge();
+};
+
+exports.comment = async ({
+  type, postId, userId,
+}) => {
+
 };

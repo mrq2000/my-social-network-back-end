@@ -6,7 +6,7 @@ services:
     image: node:12.18.2
     tty: true
     ports:
-      - "80:3000"
+      - "82:3000"
     volumes:
       - .:/opt/app
     environment:

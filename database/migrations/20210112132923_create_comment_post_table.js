@@ -9,6 +9,9 @@ exports.up = async (knex) => {
     table.integer('relate_comment_id', 1).unsigned().references('comments.id');
 
     table.timestamps(true, true);
+
+    table.index('user_id');
+    table.index('post_id');
   });
 };
 

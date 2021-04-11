@@ -1,26 +1,27 @@
+/* eslint-disable import/no-self-import */
 /* eslint-disable global-require */
 const { Model } = require('objection');
 
-class User extends Model {
+class LikePost extends Model {
   static get tableName() {
-    return 'users';
+    return 'friend_requests';
   }
 
   static get relationMappings() {
-    const FriendRequest = require('./FriendRequest');
+    const User = require('./User');
 
     return {
-      senderFriendRequests: {
-        relation: Model.HasManyRelation,
-        modelClass: FriendRequest,
+      sender: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: User,
         join: {
           from: 'users.id',
           to: 'friend_requests.sender_id',
         },
       },
-      receiverFriendRequests: {
-        relation: Model.HasManyRelation,
-        modelClass: FriendRequest,
+      receiver: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: User,
         join: {
           from: 'users.id',
           to: 'friend_requests.receiver_id',
@@ -30,4 +31,4 @@ class User extends Model {
   }
 }
 
-module.exports = User;
+module.exports = LikePost;

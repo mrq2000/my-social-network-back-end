@@ -6,6 +6,9 @@ exports.up = async (knex) => {
     table.integer('user_id', 1).unsigned().references('users.id').notNullable();
 
     table.timestamps(true, true);
+
+    table.index('user_id');
+    table.index('post_id');
   });
 };
 

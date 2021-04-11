@@ -8,6 +8,8 @@ exports.up = async (knex) => {
     table.tinyint('status', 1).unsigned().notNullable();
 
     table.timestamps(true, true);
+
+    table.index('user_id');
   });
 };
 
