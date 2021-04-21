@@ -59,6 +59,15 @@ exports.getUserPosts = async ({ userId, limit, offset }) => {
   const posts = await Post.query()
     .where({ user_id: userId })
     .andWhereNot('status', postStatusEnum.CLOSED)
+    .andWhereNot('type', postTypeEnum.PRIVATE)
+    .withGraphFetched('likes')
+    .modifyGraph('likes', (builder) => {
+      builder.select('id', 'type');
+    })
+    .withGraphFetched('likes.user')
+    .modifyGraph('likes.user', (builder) => {
+      builder.select('id', 'full_name');
+    })
     .limit(limit)
     .offset(offset)
     .orderBy('id', 'desc');
