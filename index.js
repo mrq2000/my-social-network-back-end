@@ -5,6 +5,11 @@ const dotenv = require('dotenv');
 const { Model } = require('objection');
 const cors = require('cors');
 
+// setup socket.io
+const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
 dotenv.config({ path: '.env' }); // don't move this line under routes
 
 const routes = require('./app/routes');
@@ -13,7 +18,6 @@ const middlewares = require('./app/http/middlewares');
 
 Model.knex(knex);
 
-const app = express();
 const port = 3000;
 
 app.use(cors());
@@ -27,6 +31,6 @@ app.use((req, res) => {
   res.send('Api not found');
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
