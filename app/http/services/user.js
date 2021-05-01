@@ -93,3 +93,17 @@ exports.getUserInfo = async (userId) => {
 
   return userInfo;
 };
+
+exports.getUserList = async (userIds) => {
+  const userInfos = await User.query().whereIn('id', userIds).select('id', 'full_name', 'avatar_name');
+
+  const response = userInfos.map((user) => {
+    const imgSign = getPresignedImageUrl(user.avatar_name || process.env.AWS_DEFAULT_AVATAR);
+
+    return {
+      ...user, avatar_name: imgSign,
+    };
+  });
+
+  return response;
+};

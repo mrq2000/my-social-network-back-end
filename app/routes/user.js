@@ -12,5 +12,6 @@ router.get('/users/:userId/page', auth, userController.getUserPage);
 router.get('/users/:userId/posts', auth, userController.getUserPosts);
 
 router.get('/users/info/:userId', auth, userController.getUserInfo);
+router.get('/users/list', auth, userController.getUserList);
 
 module.exports = router;
