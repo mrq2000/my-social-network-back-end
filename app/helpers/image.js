@@ -23,7 +23,7 @@ exports.getImage = async (key) => {
   return img;
 };
 
-exports.getPresignedImageUrl = (key, expires = 300) => {
+exports.getPresignedImageUrl = (key, expires = 3000) => {
   const url = s3
     .getSignedUrl('getObject', {
       Bucket: 'images',

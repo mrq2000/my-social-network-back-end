@@ -84,3 +84,12 @@ exports.getUserPosts = async ({ userId, limit, offset }) => {
 
   return response;
 };
+
+exports.getUserInfo = async (userId) => {
+  const userInfo = await User.query().findById(userId).select('id', 'full_name', 'avatar_name');
+
+  if (!userInfo) abort('user not found');
+  userInfo.avatar_name = getPresignedImageUrl(userInfo.avatar_name || process.env.AWS_DEFAULT_AVATAR);
+
+  return userInfo;
+};

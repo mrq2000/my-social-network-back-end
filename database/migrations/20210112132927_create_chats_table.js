@@ -1,5 +1,5 @@
 exports.up = async (knex) => {
-  await knex.schema.createTable('chats', (table) => {
+  await knex.schema.createTable('messages', (table) => {
     table.increments('id');
     table.text('content').collate('utf8_general_ci').notNullable();
     table.text('attach_name').collate('utf8_general_ci').notNullable();
@@ -15,5 +15,5 @@ exports.up = async (knex) => {
 };
 
 exports.down = async (knex) => {
-  await knex.schema.dropTable('chats');
+  await knex.schema.dropTable('messages');
 };
