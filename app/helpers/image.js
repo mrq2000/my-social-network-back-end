@@ -24,12 +24,16 @@ exports.getImage = async (key) => {
 };
 
 exports.getPresignedImageUrl = (key, expires = 3000) => {
-  const url = s3
-    .getSignedUrl('getObject', {
-      Bucket: 'images',
-      Key: key,
-      Expires: expires,
-    });
+  try {
+    const url = s3
+      .getSignedUrl('getObject', {
+        Bucket: 'images',
+        Key: key,
+        Expires: expires,
+      });
 
-  return url;
+    return url;
+  } catch (e) {
+    return null;
+  }
 };
