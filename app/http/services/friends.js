@@ -38,3 +38,22 @@ exports.getFriends = async (userId) => {
 
   return { friends: { total, data: friends } };
 };
+
+exports.myRequest = async ({ userId }) => {
+  const friendRequest = await FriendRequest.query()
+    .where('receiver_id', userId)
+    .where('status', friendRequestStatus.REQUEST)
+    .withGraphFetched('sender')
+    .modifyGraph('sender', (builder) => {
+      builder.select('id', 'full_name', 'avatar_name');
+    })
+    .select('id', 'created_at')
+    .orderBy('id', 'desc');
+
+  friendRequest.forEach((req) => {
+    if (req.sender) {
+      req.sender.avatar_name = getPresignedImageUrl(req.sender.avatar_name || process.env.AWS_DEFAULT_AVATAR);
+    }
+  });
+  return { friendRequest };
+};

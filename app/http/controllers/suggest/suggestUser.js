@@ -1,35 +1,35 @@
 const Joi = require('joi');
 
-const userService = require('../../services/user');
+const suggestService = require('../../services/suggest');
 const { abort } = require('../../../helpers/error');
 
-async function validation(userInfo) {
+async function validation(searchInfo) {
   try {
     const schema = Joi.object().keys({
-      myId: Joi.number().integer().min(1).required(),
       userId: Joi.number().integer().min(1).required(),
+      keyword: Joi.string().required(),
       offset: Joi.number().integer().required(),
       limit: Joi.number().integer().required(),
     });
 
-    return await Joi.validate(userInfo, schema);
+    return await Joi.validate(searchInfo, schema);
   } catch (error) {
     return abort(400, 'Params error');
   }
 }
-async function getUserPosts(req, res) {
-  const userInfo = {
-    userId: Number(req.params.userId),
+
+async function suggestUser(req, res) {
+  const searchInfo = {
+    userId: req.user.id,
+    keyword: req.query.keyword,
     offset: req.query.offset,
     limit: req.query.limit,
-    myId: req.user.id,
   };
 
-  await validation(userInfo);
+  await validation(searchInfo);
 
-  const responseData = await userService.getUserPosts(userInfo);
-
+  const responseData = await suggestService.suggestUser(searchInfo);
   return res.status(200).send(responseData);
 }
 
-module.exports = getUserPosts;
+module.exports = suggestUser;

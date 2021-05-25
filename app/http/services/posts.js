@@ -22,11 +22,15 @@ exports.getMyPosts = async ({ userId, limit, offset }) => {
     .andWhereNot('status', postStatusEnum.CLOSED)
     .withGraphFetched('likes')
     .modifyGraph('likes', (builder) => {
-      builder.select('id', 'type');
+      builder.whereNot('user_id', userId).select('id', 'type');
     })
     .withGraphFetched('likes.user')
     .modifyGraph('likes.user', (builder) => {
       builder.select('id', 'full_name');
+    })
+    .withGraphFetched('me')
+    .modifyGraph('me', (builder) => {
+      builder.where('user_id', userId);
     })
     .limit(limit)
     .offset(offset)
@@ -48,18 +52,8 @@ exports.getMyPosts = async ({ userId, limit, offset }) => {
 exports.likePost = async ({
   type, postId, userId,
 }) => {
-  const insertLikePost = {
-    type, post_id: postId, user_id: userId,
-  };
-
   await LikePost.knexQuery()
     .insert({ type, post_id: postId, user_id: userId })
     .onConflict(['user_id', 'post_id'])
     .merge();
-};
-
-exports.comment = async ({
-  type, postId, userId,
-}) => {
-
 };

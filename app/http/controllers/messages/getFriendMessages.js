@@ -23,7 +23,7 @@ async function getFriendMessages(req, res) {
     userId: req.user.id,
     friendId: Number(req.params.friendId),
     cursor: req.query.cursor,
-    limit: req.query.limit,
+    limit: Number(req.query.limit),
   };
 
   await validation(friendInfo);

@@ -21,12 +21,12 @@ async function validation(postInfo) {
 async function likePost(req, res) {
   const postInfo = {
     userId: req.user.id,
-    postId: req.body.postId,
+    postId: Number(req.params.postId),
     type: req.body.type,
   };
 
   await validation(postInfo);
-
+  console.log(2222222222222222222);
   await postsService.likePost(postInfo);
   return res.status(201).send();
 }

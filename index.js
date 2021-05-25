@@ -10,7 +10,7 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server, {
   cors: {
-    origin: process.env.FRONT_END_URL,
+    origin: [process.env.FRONT_END_URL, 'http://localhost:8080'],
     credentials: true,
   },
 });
@@ -20,7 +20,12 @@ dotenv.config({ path: '.env' }); // don't move this line under routes
 const routes = require('./app/routes');
 const knex = require('./database/knex');
 const middlewares = require('./app/http/middlewares');
+
+// socket
 const { addUser, removeUser } = require('./socket/user');
+const { newFriendRequest, acceptFriendRequest } = require('./socket/friendRequest');
+
+const { newMessage } = require('./socket/chat');
 
 Model.knex(knex);
 
@@ -46,12 +51,39 @@ io.on('connection', (socket) => {
     addUser(token, socket.id);
   });
 
+  socket.on('new message', async (data, cb) => {
+    const isSuccess = await newMessage(data);
+    cb(isSuccess);
+  });
+
   socket.on('disconnection', () => {
     console.log('disconnect');
 
-    socket.on('removeUser', ({ token }) => {
+    socket.on('removeUser', async ({ token }) => {
       removeUser(token, socket.id);
     });
+  });
+
+  socket.on('newFriendRequest', async (data, cb) => {
+    const res = await newFriendRequest(data);
+
+    if (res.me) {
+      socket.to(res.user.socketId).emit('friendRequest', res.me);
+    }
+
+    if (res) cb(true);
+    cb(false);
+  });
+
+  socket.on('acceptFriendRequest', async (data, cb) => {
+    const res = await acceptFriendRequest(data);
+
+    if (res.me) {
+      socket.to(res.user.socketId).emit('friendRequestAccept', res.me);
+    }
+
+    if (res) cb(true);
+    cb(false);
   });
 });
 

@@ -8,6 +8,7 @@ async function validation(userInfo) {
   try {
     const schema = Joi.object().keys({
       userId: Joi.number().integer().min(1).required(),
+      myId: Joi.number().integer().min(1).required(),
     });
 
     return await Joi.validate(userInfo, schema);
@@ -16,11 +17,15 @@ async function validation(userInfo) {
   }
 }
 async function getUserPage(req, res) {
-  const userId = Number(req.params.userId);
-  await validation({ userId });
+  const params = {
+    userId: Number(req.params.userId),
+    myId: Number(req.user.id),
+  };
 
-  const responseData = await userService.getUserInformation(userId);
-  const friendInfo = await friendService.getFriends(userId);
+  await validation(params);
+
+  const responseData = await userService.getUserInformation(params);
+  const friendInfo = await friendService.getFriends(params.userId);
 
   return res.status(200).send({ ...responseData, ...friendInfo });
 }

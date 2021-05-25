@@ -26,6 +26,22 @@ class User extends Model {
           to: 'friend_requests.receiver_id',
         },
       },
+      meSendRequest: {
+        relation: Model.HasOneRelation,
+        modelClass: FriendRequest,
+        join: {
+          from: 'users.id',
+          to: 'friend_requests.sender_id',
+        },
+      },
+      meReceiveRequest: {
+        relation: Model.HasOneRelation,
+        modelClass: FriendRequest,
+        join: {
+          from: 'users.id',
+          to: 'friend_requests.receiver_id',
+        },
+      },
     };
   }
 }
